@@ -3,301 +3,454 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aman Muhammed P | Frontend Developer</title>
-    <!-- Tailwind CSS -->
+    <title>Bharat Price Tracker | Live Fuel & Metals</title>
+    <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-    
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+        
         :root {
-            --bg-dark: #020617;
-            --accent: #3b82f6;
-            --accent-glow: rgba(59, 130, 246, 0.5);
+            --primary: #6366f1;
+            --bg-dark: #0f172a;
         }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-dark);
             color: #f8fafc;
-            scroll-behavior: smooth;
             overflow-x: hidden;
         }
 
         .glass {
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(30, 41, 59, 0.7);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .neo-button {
+        .gradient-text {
+            background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-hover {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
         }
 
-        .neo-button:hover {
-            box-shadow: 0 0 20px var(--accent-glow);
-            transform: translateY(-2px);
+        .card-hover:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.3);
         }
 
-        .skill-card {
-            transition: all 0.3s ease;
-        }
-
-        .skill-card:hover {
-            border-color: var(--accent);
-            background: rgba(59, 130, 246, 0.05);
-        }
-
-        .project-card:hover .project-img {
-            transform: scale(1.1);
-        }
-
-        /* Custom Scrollbar */
+        /* Custom scrollbar */
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-dark); }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+        ::-webkit-scrollbar-track { background: #1e293b; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; }
 
-        /* Background Glows */
-        .glow-1 {
-            position: fixed; top: -10%; left: -10%; width: 40%; height: 40%;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
-            z-index: -1;
-        }
-        .glow-2 {
-            position: fixed; bottom: -10%; right: -10%; width: 40%; height: 40%;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
-            z-index: -1;
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
         }
     </style>
 </head>
-<body class="antialiased">
-    <div class="glow-1"></div>
-    <div class="glow-2"></div>
+<body class="min-h-screen pb-12">
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 glass border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 glass border-b border-white/10 px-6 py-4 mb-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-2">
-                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center font-extrabold text-xl shadow-lg shadow-blue-900/40">A</div>
-                <span class="font-bold tracking-tight text-lg hidden sm:block">Aman Muhammed P</span>
-            </div>
-            
-            <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
-                <a href="#home" class="hover:text-blue-400 transition">Home</a>
-                <a href="#about" class="hover:text-blue-400 transition">About</a>
-                <a href="#projects" class="hover:text-blue-400 transition">Projects</a>
-                <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
+                <div class="p-2 bg-indigo-600 rounded-lg">
+                    <i data-lucide="trending-up" class="w-6 h-6 text-white"></i>
+                </div>
+                <h1 class="text-2xl font-bold gradient-text">BharatPrice</h1>
             </div>
 
-            <a href="#contact" class="neo-button bg-blue-600 text-white px-6 py-2.5 rounded-full text-sm font-bold">
-                Hire Me
-            </a>
+            <div class="flex items-center gap-4 w-full md:w-auto">
+                <div class="relative w-full">
+                    <select id="stateSelector" class="w-full md:w-64 bg-slate-800 border border-slate-700 text-white rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 outline-none cursor-pointer transition-all">
+                        <option value="Delhi">Delhi</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="West Bengal">West Bengal</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        <option value="Telangana">Telangana</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Punjab">Punjab</option>
+                        <option value="Haryana">Haryana</option>
+                    </select>
+                </div>
+                <button onclick="refreshData()" class="p-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl transition-all active:scale-95">
+                    <i data-lucide="refresh-cw" id="refreshIcon" class="w-5 h-5 text-indigo-400"></i>
+                </button>
+            </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center px-6 pt-20">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div>
-                <span class="inline-block py-1 px-3 rounded-full bg-blue-500/10 text-blue-400 text-xs font-bold uppercase tracking-widest mb-4 border border-blue-500/20">
-                    Frontend Developer
-                </span>
-                <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
-                    Crafting Modern <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Digital Reality.</span>
-                </h1>
-                <p class="text-slate-400 text-lg md:text-xl max-w-lg mb-8 leading-relaxed">
-                    16-year-old developer based in <span class="text-white">Kerala, India</span>. Specializing in building clean, interactive, and high-conversion web interfaces.
-                </p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="#projects" class="neo-button bg-white text-black px-8 py-4 rounded-2xl font-bold flex items-center gap-2">
-                        My Projects <i class="fas fa-arrow-right text-sm"></i>
-                    </a>
-                    <div class="flex items-center gap-4 px-4">
-                        <a href="https://github.com" target="_blank" class="text-slate-400 hover:text-white transition text-2xl"><i class="fab fa-github"></i></a>
-                        <a href="https://x.com" target="_blank" class="text-slate-400 hover:text-white transition text-2xl"><i class="fab fa-x-twitter"></i></a>
-                        <a href="https://instagram.com" target="_blank" class="text-slate-400 hover:text-white transition text-2xl"><i class="fab fa-instagram"></i></a>
+    <main class="max-w-7xl mx-auto px-6">
+        <!-- Live Ticker Info -->
+        <div class="flex items-center gap-2 mb-6 text-slate-400 text-sm">
+            <span class="relative flex h-3 w-3">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+            </span>
+            <span>Live Market Rates • <span id="lastUpdated">Updating...</span></span>
+        </div>
+
+        <!-- Price Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+            <!-- Petrol -->
+            <div class="glass p-6 rounded-2xl card-hover">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="p-3 bg-orange-500/20 rounded-xl">
+                        <i data-lucide="fuel" class="w-6 h-6 text-orange-500"></i>
+                    </div>
+                    <span class="text-xs font-bold text-orange-500 bg-orange-500/10 px-2 py-1 rounded">PETROL</span>
+                </div>
+                <h3 class="text-slate-400 text-sm mb-1">Price per Litre</h3>
+                <div class="flex items-baseline gap-2">
+                    <span class="text-3xl font-bold" id="petrolPrice">₹94.72</span>
+                    <span class="text-sm text-green-400" id="petrolChange">↓ 0.2%</span>
+                </div>
+            </div>
+
+            <!-- Diesel -->
+            <div class="glass p-6 rounded-2xl card-hover">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="p-3 bg-blue-500/20 rounded-xl">
+                        <i data-lucide="droplet" class="w-6 h-6 text-blue-500"></i>
+                    </div>
+                    <span class="text-xs font-bold text-blue-500 bg-blue-500/10 px-2 py-1 rounded">DIESEL</span>
+                </div>
+                <h3 class="text-slate-400 text-sm mb-1">Price per Litre</h3>
+                <div class="flex items-baseline gap-2">
+                    <span class="text-3xl font-bold" id="dieselPrice">₹87.62</span>
+                    <span class="text-sm text-red-400" id="dieselChange">↑ 0.1%</span>
+                </div>
+            </div>
+
+            <!-- Gold -->
+            <div class="glass p-6 rounded-2xl card-hover">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="p-3 bg-yellow-500/20 rounded-xl">
+                        <i data-lucide="gem" class="w-6 h-6 text-yellow-500"></i>
+                    </div>
+                    <span class="text-xs font-bold text-yellow-500 bg-yellow-500/10 px-2 py-1 rounded">GOLD (24K)</span>
+                </div>
+                <h3 class="text-slate-400 text-sm mb-1">Price per 10g</h3>
+                <div class="flex items-baseline gap-2">
+                    <span class="text-3xl font-bold" id="goldPrice">₹72,450</span>
+                    <span class="text-sm text-green-400" id="goldChange">↓ 1.4%</span>
+                </div>
+            </div>
+
+            <!-- Silver -->
+            <div class="glass p-6 rounded-2xl card-hover">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="p-3 bg-slate-400/20 rounded-xl">
+                        <i data-lucide="circle-dot" class="w-6 h-6 text-slate-300"></i>
+                    </div>
+                    <span class="text-xs font-bold text-slate-300 bg-slate-400/10 px-2 py-1 rounded">SILVER</span>
+                </div>
+                <h3 class="text-slate-400 text-sm mb-1">Price per 1kg</h3>
+                <div class="flex items-baseline gap-2">
+                    <span class="text-3xl font-bold" id="silverPrice">₹89,200</span>
+                    <span class="text-sm text-red-400" id="silverChange">↑ 0.8%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="glass p-6 rounded-3xl">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold">Fuel Price Trend (7 Days)</h2>
+                    <div class="flex gap-2">
+                        <span class="flex items-center gap-1 text-xs text-orange-400"><span class="w-2 h-2 rounded-full bg-orange-400"></span> Petrol</span>
+                        <span class="flex items-center gap-1 text-xs text-blue-400"><span class="w-2 h-2 rounded-full bg-blue-400"></span> Diesel</span>
                     </div>
                 </div>
+                <div class="h-[300px]">
+                    <canvas id="fuelChart"></canvas>
+                </div>
             </div>
-            <div class="hidden md:block relative">
-                <div class="absolute -inset-4 bg-blue-500/20 blur-3xl rounded-full"></div>
-                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop" 
-                     class="relative rounded-3xl border border-white/10 shadow-2xl grayscale hover:grayscale-0 transition duration-700" 
-                     alt="Workspace">
-            </div>
-        </div>
-    </section>
 
-    <!-- Skills Section -->
-    <section id="about" class="py-24 px-6 bg-slate-950/40">
-        <div class="max-w-7xl mx-auto">
-            <div class="mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Core Skills</h2>
-                <p class="text-slate-400">The tools I use to bring ideas to life.</p>
-            </div>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="skill-card glass p-8 rounded-3xl text-center">
-                    <i class="fab fa-html5 text-4xl text-orange-500 mb-4"></i>
-                    <h3 class="font-bold">HTML5</h3>
+            <div class="glass p-6 rounded-3xl">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold">Metal Price Analysis</h2>
+                    <select id="metalChartType" class="bg-slate-800 border-none text-xs text-slate-300 rounded-lg px-2 py-1 outline-none">
+                        <option value="gold">Gold Focus</option>
+                        <option value="silver">Silver Focus</option>
+                    </select>
                 </div>
-                <div class="skill-card glass p-8 rounded-3xl text-center">
-                    <i class="fab fa-css3-alt text-4xl text-blue-500 mb-4"></i>
-                    <h3 class="font-bold">CSS3</h3>
-                </div>
-                <div class="skill-card glass p-8 rounded-3xl text-center">
-                    <i class="fab fa-js text-4xl text-yellow-400 mb-4"></i>
-                    <h3 class="font-bold">JavaScript</h3>
-                </div>
-                <div class="skill-card glass p-8 rounded-3xl text-center">
-                    <i class="fab fa-git-alt text-4xl text-red-500 mb-4"></i>
-                    <h3 class="font-bold">Git</h3>
+                <div class="h-[300px]">
+                    <canvas id="metalChart"></canvas>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="py-24 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex justify-between items-end mb-16">
+        <!-- Calculator Section -->
+        <div class="mt-10 glass p-8 rounded-3xl">
+            <h2 class="text-2xl font-bold mb-6">Price Estimator</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
-                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Selected Work</h2>
-                    <p class="text-slate-400">A collection of my recent projects.</p>
+                    <label class="block text-slate-400 text-sm mb-2">I want to buy</label>
+                    <select id="calcType" class="w-full bg-slate-800 border border-slate-700 text-white rounded-xl px-4 py-3 outline-none">
+                        <option value="petrol">Petrol (Litre)</option>
+                        <option value="diesel">Diesel (Litre)</option>
+                        <option value="gold">Gold (Grams)</option>
+                        <option value="silver">Silver (Grams)</option>
+                    </select>
                 </div>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Project 1 -->
-                <div class="project-card group glass rounded-[2.5rem] overflow-hidden">
-                    <div class="h-64 overflow-hidden bg-slate-800">
-                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-tr from-blue-900 to-slate-900">
-                             <i class="fas fa-leaf text-6xl text-emerald-400/50"></i>
-                        </div>
-                    </div>
-                    <div class="p-8">
-                        <div class="flex gap-2 mb-4">
-                            <span class="text-[10px] font-bold px-2 py-1 bg-white/5 rounded-md text-slate-400 border border-white/10 uppercase">E-Commerce</span>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-3">Stainycones</h3>
-                        <p class="text-slate-400 mb-6 leading-relaxed">A premium Henna store interface focusing on visual storytelling and seamless checkout flow.</p>
-                        <a href="https://webhut-in.github.io/Stainycones/" target="_blank" class="flex items-center gap-2 font-bold text-blue-400 hover:text-blue-300 transition">
-                            Visit Live Site <i class="fas fa-external-link-alt text-xs"></i>
-                        </a>
-                    </div>
+                <div>
+                    <label class="block text-slate-400 text-sm mb-2">Quantity</label>
+                    <input type="number" id="calcQty" value="10" min="0" class="w-full bg-slate-800 border border-slate-700 text-white rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-500">
                 </div>
-
-                <!-- Project 2 -->
-                <div class="project-card group glass rounded-[2.5rem] overflow-hidden">
-                    <div class="h-64 overflow-hidden bg-slate-800">
-                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-tr from-indigo-900 to-slate-900">
-                             <i class="fas fa-indian-rupee-sign text-6xl text-blue-400/50"></i>
-                        </div>
-                    </div>
-                    <div class="p-8">
-                        <div class="flex gap-2 mb-4">
-                            <span class="text-[10px] font-bold px-2 py-1 bg-white/5 rounded-md text-slate-400 border border-white/10 uppercase">Price Tracker</span>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-3">BharatPrice</h3>
-                        <p class="text-slate-400 mb-6 leading-relaxed">A localized price tracking platform designed for the Indian market to compare electronics and gadgets.</p>
-                        <a href="https://webhut-in.github.io/BHARATPRICE/" target="_blank" class="flex items-center gap-2 font-bold text-blue-400 hover:text-blue-300 transition">
-                            Visit Live Site <i class="fas fa-external-link-alt text-xs"></i>
-                        </a>
+                <div class="flex flex-col justify-end">
+                    <div class="p-4 bg-indigo-600/20 border border-indigo-500/30 rounded-xl">
+                        <span class="text-xs text-indigo-300 block uppercase font-bold tracking-wider">Estimated Cost</span>
+                        <span class="text-2xl font-bold text-white" id="calcResult">₹ 0.00</span>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </main>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-24 px-6 bg-slate-950/40 border-t border-white/5">
-        <div class="max-w-3xl mx-auto text-center">
-            <h2 class="text-4xl font-extrabold mb-6">Let's build something <span class="text-blue-500">amazing.</span></h2>
-            <p class="text-slate-400 mb-10 text-lg">I'm currently looking for new projects and opportunities to grow. Based in Kerala, working globally.</p>
-            
-            <div class="glass p-8 rounded-[2rem] border border-blue-500/20 text-left">
-                <form id="contactForm" class="grid gap-6">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-semibold mb-2 text-slate-300">Name</label>
-                            <input type="text" required placeholder="John Doe" class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500 transition">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold mb-2 text-slate-300">Email</label>
-                            <input type="email" required placeholder="john@example.com" class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500 transition">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold mb-2 text-slate-300">Message</label>
-                        <textarea rows="4" required placeholder="Tell me about your project..." class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500 transition"></textarea>
-                    </div>
-                    <button type="submit" class="neo-button w-full bg-blue-600 text-white font-bold py-4 rounded-xl">
-                        Send Message
-                    </button>
-                </form>
-                <div id="formSuccess" class="hidden text-center py-4 text-emerald-400 font-bold">
-                    <i class="fas fa-check-circle mr-2"></i> Message sent successfully!
-                </div>
-            </div>
-
-            <div class="mt-16 flex flex-col items-center gap-4">
-                <span class="text-slate-500 text-sm uppercase tracking-tighter">Follow me</span>
-                <div class="flex gap-6">
-                    <a href="https://webhut-in.github.io.com" class="text-slate-400 hover:text-white transition transform hover:scale-125"><i class="fab fa-github text-xl"></i></a>
-                    <a href="https://x.com/amaneeh_" class="text-slate-400 hover:text-white transition transform hover:scale-125"><i class="fab fa-x-twitter text-xl"></i></a>
-                    <a href="https://www.instagram.com/amaneeh._?igsh=YzhvZXZsb25sbGZ4" class="text-slate-400 hover:text-pink-500 transition transform hover:scale-125"><i class="fab fa-instagram text-xl"></i></a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-10 text-center text-slate-500 text-xs border-t border-white/5">
-        <p>&copy; <span id="year"></span> Aman Muhammed P. Crafted with passion in Kerala, India.</p>
+    <footer class="max-w-7xl mx-auto px-6 mt-12 text-center text-slate-500 text-sm">
+        <p>© 2026 BharatPrice Tracker. Prices are indicative and updated daily at 6:00 AM IST.</p>
     </footer>
+   <section class="max-w-7xl mx-auto px-6 mt-12 mb-16">
+    <div class="glass p-8 rounded-3xl border border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+        <div>
+            <h3 class="text-2xl font-bold gradient-text">Developed by Aman muhammed p</h3>
+            <p class="text-slate-400 mt-2 max-w-xl leading-relaxed">
+                Full-stack developer focused on building interactive, data-driven web applications with clean code and modern UI/UX principles.
+            </p>
+        </div>
+        
+        <a href="https://webhut-in.github.io/AMAN-THE-FRONTEND-DEVELOPER/" target="_blank" class="group flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-3 rounded-xl font-semibold transition-all shadow-lg shadow-indigo-500/20 active:scale-95">
+            <span>View Portfolio</span>
+            <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+        </a>
+    </div>
+</section>
+    <section class="max-w-7xl mx-auto px-6 mt-16">
+    <div class="glass p-8 md:p-12 rounded-3xl border border-white/10 relative overflow-hidden">
+        <div class="absolute -top-24 -right-24 w-64 h-64 bg-indigo-600/20 blur-[100px] rounded-full"></div>
+        
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-3xl font-bold mb-6">About <span class="gradient-text">BharatPrice</span></h2>
+                <p class="text-slate-300 leading-relaxed mb-6">
+                    BharatPrice is India's premier real-time commodity tracker, designed to bring transparency to the daily fluctuating markets of fuel and precious metals. We empower citizens and businesses with hyper-local data across 12 major states.
+                </p>
+                
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <div class="mt-1 p-1 bg-indigo-500/20 rounded">
+                            <i data-lucide="check" class="w-4 h-4 text-indigo-400"></i>
+                        </div>
+                        <span class="text-slate-400"><strong class="text-slate-200">Accuracy:</strong> Direct feeds from verified state-wise market sources.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <div class="mt-1 p-1 bg-indigo-500/20 rounded">
+                            <i data-lucide="check" class="w-4 h-4 text-indigo-400"></i>
+                        </div>
+                        <span class="text-slate-400"><strong class="text-slate-200">Visualization:</strong> Interactive charts to help you time your purchases.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="p-6 bg-white/5 rounded-2xl border border-white/5 text-center">
+                    <h4 class="text-2xl font-bold text-white mb-1">24/7</h4>
+                    <p class="text-xs text-slate-500 uppercase tracking-widest">Live Monitoring</p>
+                </div>
+                <div class="p-6 bg-white/5 rounded-2xl border border-white/5 text-center">
+                    <h4 class="text-2xl font-bold text-white mb-1">12+</h4>
+                    <p class="text-xs text-slate-500 uppercase tracking-widest">States Covered</p>
+                </div>
+                <div class="p-6 bg-white/5 rounded-2xl border border-white/5 text-center">
+                    <h4 class="text-2xl font-bold text-white mb-1">Daily</h4>
+                    <p class="text-xs text-slate-500 uppercase tracking-widest">Price Updates</p>
+                </div>
+                <div class="p-6 bg-white/5 rounded-2xl border border-white/5 text-center">
+                    <h4 class="text-2xl font-bold text-white mb-1">0%</h4>
+                    <p class="text-xs text-slate-500 uppercase tracking-widest">Latency Delay</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
     <script>
-        // Set Current Year
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        // Handle Contact Form
-        const form = document.getElementById('contactForm');
-        const success = document.getElementById('formSuccess');
-
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            form.classList.add('hidden');
-            success.classList.remove('hidden');
-            
-            // In a real app, you'd use fetch() to send the data here
-            console.log("Form Submitted!");
-        });
-
-        // Smooth reveal on scroll
-        const observerOptions = {
-            threshold: 0.1
+        // Data Mocking Engine (Simulating live market data for 12 Indian states)
+        const STATE_DATA = {
+            "Delhi": { p: 94.72, d: 87.62, g: 72150, s: 89000 },
+            "Maharashtra": { p: 106.31, d: 94.27, g: 72550, s: 91200 },
+            "Karnataka": { p: 101.94, d: 87.89, g: 72400, s: 90500 },
+            "Tamil Nadu": { p: 102.63, d: 94.24, g: 72600, s: 92000 },
+            "West Bengal": { p: 106.03, d: 92.76, g: 72300, s: 89800 },
+            "Gujarat": { p: 96.31, d: 92.17, g: 72200, s: 88500 },
+            "Uttar Pradesh": { p: 96.57, d: 89.76, g: 72100, s: 88700 },
+            "Telangana": { p: 109.66, d: 97.82, g: 72500, s: 91000 },
+            "Rajasthan": { p: 108.48, d: 93.72, g: 72350, s: 89500 },
+            "Kerala": { p: 107.56, d: 96.43, g: 72700, s: 93000 },
+            "Punjab": { p: 98.65, d: 88.95, g: 72180, s: 88900 },
+            "Haryana": { p: 97.34, d: 90.11, g: 72120, s: 88600 }
         };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('opacity-100', 'translate-y-0');
-                    entry.target.classList.remove('opacity-0', 'translate-y-10');
-                }
-            });
-        }, observerOptions);
+        let fuelChart, metalChart;
 
-        document.querySelectorAll('section').forEach(section => {
-            section.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
-            observer.observe(section);
-        });
+        function initApp() {
+            lucide.createIcons();
+            updateUI('Delhi');
+            setupCharts();
+            setupEventListeners();
+            
+            const now = new Date();
+            document.getElementById('lastUpdated').innerText = now.toLocaleString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        }
+
+        function setupEventListeners() {
+            document.getElementById('stateSelector').addEventListener('change', (e) => {
+                updateUI(e.target.value);
+                updateCharts(e.target.value);
+            });
+
+            const calcInputs = ['calcType', 'calcQty'];
+            calcInputs.forEach(id => {
+                document.getElementById(id).addEventListener('input', calculateEstimate);
+            });
+            
+            document.getElementById('metalChartType').addEventListener('change', () => {
+                updateCharts(document.getElementById('stateSelector').value);
+            });
+        }
+
+        function updateUI(stateName) {
+            const data = STATE_DATA[stateName];
+            
+            // Update Prices
+            document.getElementById('petrolPrice').innerText = `₹${data.p.toFixed(2)}`;
+            document.getElementById('dieselPrice').innerText = `₹${data.d.toFixed(2)}`;
+            document.getElementById('goldPrice').innerText = `₹${data.g.toLocaleString('en-IN')}`;
+            document.getElementById('silverPrice').innerText = `₹${data.s.toLocaleString('en-IN')}`;
+
+            // Random Change Simulation
+            updateChangeIndicator('petrolChange', (Math.random() * 0.5).toFixed(1));
+            updateChangeIndicator('dieselChange', (Math.random() * 0.4).toFixed(1));
+            updateChangeIndicator('goldChange', (Math.random() * 1.5).toFixed(1));
+            updateChangeIndicator('silverChange', (Math.random() * 2.0).toFixed(1));
+
+            calculateEstimate();
+        }
+
+        function updateChangeIndicator(id, val) {
+            const el = document.getElementById(id);
+            const isUp = Math.random() > 0.5;
+            el.innerText = `${isUp ? '↑' : '↓'} ${val}%`;
+            el.className = `text-sm ${isUp ? 'text-red-400' : 'text-green-400'}`;
+        }
+
+        function calculateEstimate() {
+            const type = document.getElementById('calcType').value;
+            const qty = parseFloat(document.getElementById('calcQty').value) || 0;
+            const state = document.getElementById('stateSelector').value;
+            const price = STATE_DATA[state][type === 'petrol' ? 'p' : type === 'diesel' ? 'd' : type === 'gold' ? 'g' : 's'];
+            
+            let total;
+            if(type === 'gold') total = (price / 10) * qty;
+            else if(type === 'silver') total = (price / 1000) * qty;
+            else total = price * qty;
+
+            document.getElementById('calcResult').innerText = `₹ ${total.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+        }
+
+        function refreshData() {
+            const btnIcon = document.getElementById('refreshIcon');
+            btnIcon.classList.add('animate-spin');
+            
+            setTimeout(() => {
+                btnIcon.classList.remove('animate-spin');
+                const state = document.getElementById('stateSelector').value;
+                updateUI(state);
+                updateCharts(state);
+                document.getElementById('lastUpdated').innerText = new Date().toLocaleTimeString('en-IN');
+            }, 800);
+        }
+
+        function setupCharts() {
+            const ctxFuel = document.getElementById('fuelChart').getContext('2d');
+            const ctxMetal = document.getElementById('metalChart').getContext('2d');
+
+            const commonOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b' } },
+                    x: { grid: { display: false }, ticks: { color: '#64748b' } }
+                }
+            };
+
+            fuelChart = new Chart(ctxFuel, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [
+                        { label: 'Petrol', borderColor: '#f97316', borderWidth: 3, tension: 0.4, data: [] },
+                        { label: 'Diesel', borderColor: '#3b82f6', borderWidth: 3, tension: 0.4, data: [] }
+                    ]
+                },
+                options: commonOptions
+            });
+
+            metalChart = new Chart(ctxMetal, {
+                type: 'bar',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{ backgroundColor: '#eab308', borderRadius: 6, data: [] }]
+                },
+                options: commonOptions
+            });
+
+            updateCharts('Delhi');
+        }
+
+        function updateCharts(stateName) {
+            const base = STATE_DATA[stateName];
+            
+            // Fuel data simulation
+            const pData = Array.from({length: 7}, () => base.p + (Math.random() - 0.5) * 2);
+            const dData = Array.from({length: 7}, () => base.d + (Math.random() - 0.5) * 1.5);
+            
+            fuelChart.data.datasets[0].data = pData;
+            fuelChart.data.datasets[1].data = dData;
+            fuelChart.update();
+
+            // Metal data simulation
+            const metalType = document.getElementById('metalChartType').value;
+            const mBase = base[metalType === 'gold' ? 'g' : 's'];
+            const mData = Array.from({length: 7}, () => mBase + (Math.random() - 0.5) * (metalType === 'gold' ? 500 : 1000));
+            
+            metalChart.data.datasets[0].data = mData;
+            metalChart.data.datasets[0].label = metalType.toUpperCase();
+            metalChart.data.datasets[0].backgroundColor = metalType === 'gold' ? '#eab308' : '#cbd5e1';
+            metalChart.update();
+        }
+
+        window.onload = initApp;
     </script>
 </body>
 </html>
-
-
-

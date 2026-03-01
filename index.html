@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aman Muhammed P | Frontend Developer</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #020617;
+            --accent: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.5);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: #f8fafc;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        .glass {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .neo-button {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .neo-button:hover {
+            box-shadow: 0 0 20px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        .skill-card {
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover {
+            border-color: var(--accent);
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .project-card:hover .project-img {
+            transform: scale(1.1);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+        /* Background Glows */
+        .glow-1 {
+            position: fixed; top: -10%; left: -10%; width: 40%; height: 40%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            z-index: -1;
+        }
+        .glow-2 {
+            position: fixed; bottom: -10%; right: -10%; width: 40%; height: 40%;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="glow-1"></div>
+    <div class="glow-2"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center font-extrabold text-xl shadow-lg shadow-blue-900/40">A</div>
+                <span class="font-bold tracking-tight text-lg hidden sm:block">Aman Muhammed P</span>
+            </div>
+            
+            <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
+                <a href="#home" class="hover:text-blue-400 transition">Home</a>
+                <a href="#about" class="hover:text-blue-400 transition">About</a>
+                <a href="#projects" class="hover:text-blue-400 transition">Projects</a>
+                <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
+            </div>
+
+            <a href="#contact" class="neo-button bg-blue-600 text-white px-6 py-2.5 rounded-full text-sm font-bold">
+                Hire Me
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center px-6 pt-20">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <span class="inline-block py-1 px-3 rounded-full bg-blue-500/10 text-blue-400 text-xs font-bold uppercase tracking-widest mb-4 border border-blue-500/20">
+                    Frontend Developer
+                </span>
+                <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
+                    Crafting Modern <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Digital Reality.</span>
+                </h1>
+                <p class="text-slate-400 text-lg md:text-xl max-w-lg mb-8 leading-relaxed">
+                    16-year-old developer based in <span class="text-white">Kerala, India</span>. Specializing in building clean, interactive, and high-conversion web interfaces.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#projects" class="neo-button bg-white text-black px-8 py-4 rounded-2xl font-bold flex items-center gap-2">
+                        My Projects <i class="fas fa-arrow-right text-sm"></i>
+                    </a>
+                    <div class="flex items-center gap-4 px-4">
+                        <a href="https://github.com" target="_blank" class="text-slate-400 hover:text-white transition text-2xl"><i class="fab fa-github"></i></a>
+                        <a href="https://x.com" target="_blank" class="text-slate-400 hover:text-white transition text-2xl"><i class="fab fa-x-twitter"></i></a>
+                        <a href="https://instagram.com" target="_blank" class="text-slate-400 hover:text-white transition text-2xl"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="hidden md:block relative">
+                <div class="absolute -inset-4 bg-blue-500/20 blur-3xl rounded-full"></div>
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop" 
+                     class="relative rounded-3xl border border-white/10 shadow-2xl grayscale hover:grayscale-0 transition duration-700" 
+                     alt="Workspace">
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="about" class="py-24 px-6 bg-slate-950/40">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Core Skills</h2>
+                <p class="text-slate-400">The tools I use to bring ideas to life.</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="skill-card glass p-8 rounded-3xl text-center">
+                    <i class="fab fa-html5 text-4xl text-orange-500 mb-4"></i>
+                    <h3 class="font-bold">HTML5</h3>
+                </div>
+                <div class="skill-card glass p-8 rounded-3xl text-center">
+                    <i class="fab fa-css3-alt text-4xl text-blue-500 mb-4"></i>
+                    <h3 class="font-bold">CSS3</h3>
+                </div>
+                <div class="skill-card glass p-8 rounded-3xl text-center">
+                    <i class="fab fa-js text-4xl text-yellow-400 mb-4"></i>
+                    <h3 class="font-bold">JavaScript</h3>
+                </div>
+                <div class="skill-card glass p-8 rounded-3xl text-center">
+                    <i class="fab fa-git-alt text-4xl text-red-500 mb-4"></i>
+                    <h3 class="font-bold">Git</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex justify-between items-end mb-16">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Selected Work</h2>
+                    <p class="text-slate-400">A collection of my recent projects.</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card group glass rounded-[2.5rem] overflow-hidden">
+                    <div class="h-64 overflow-hidden bg-slate-800">
+                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-tr from-blue-900 to-slate-900">
+                             <i class="fas fa-leaf text-6xl text-emerald-400/50"></i>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex gap-2 mb-4">
+                            <span class="text-[10px] font-bold px-2 py-1 bg-white/5 rounded-md text-slate-400 border border-white/10 uppercase">E-Commerce</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Stainycones</h3>
+                        <p class="text-slate-400 mb-6 leading-relaxed">A premium Henna store interface focusing on visual storytelling and seamless checkout flow.</p>
+                        <a href="https://webhut-in.github.io/Stainycones/" target="_blank" class="flex items-center gap-2 font-bold text-blue-400 hover:text-blue-300 transition">
+                            Visit Live Site <i class="fas fa-external-link-alt text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card group glass rounded-[2.5rem] overflow-hidden">
+                    <div class="h-64 overflow-hidden bg-slate-800">
+                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-tr from-indigo-900 to-slate-900">
+                             <i class="fas fa-indian-rupee-sign text-6xl text-blue-400/50"></i>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex gap-2 mb-4">
+                            <span class="text-[10px] font-bold px-2 py-1 bg-white/5 rounded-md text-slate-400 border border-white/10 uppercase">Price Tracker</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">BharatPrice</h3>
+                        <p class="text-slate-400 mb-6 leading-relaxed">A localized price tracking platform designed for the Indian market to compare electronics and gadgets.</p>
+                        <a href="https://webhut-in.github.io/BHARATPRICE/" target="_blank" class="flex items-center gap-2 font-bold text-blue-400 hover:text-blue-300 transition">
+                            Visit Live Site <i class="fas fa-external-link-alt text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-6 bg-slate-950/40 border-t border-white/5">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-4xl font-extrabold mb-6">Let's build something <span class="text-blue-500">amazing.</span></h2>
+            <p class="text-slate-400 mb-10 text-lg">I'm currently looking for new projects and opportunities to grow. Based in Kerala, working globally.</p>
+            
+            <div class="glass p-8 rounded-[2rem] border border-blue-500/20 text-left">
+                <form id="contactForm" class="grid gap-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-slate-300">Name</label>
+                            <input type="text" required placeholder="John Doe" class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500 transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-slate-300">Email</label>
+                            <input type="email" required placeholder="john@example.com" class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500 transition">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 text-slate-300">Message</label>
+                        <textarea rows="4" required placeholder="Tell me about your project..." class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500 transition"></textarea>
+                    </div>
+                    <button type="submit" class="neo-button w-full bg-blue-600 text-white font-bold py-4 rounded-xl">
+                        Send Message
+                    </button>
+                </form>
+                <div id="formSuccess" class="hidden text-center py-4 text-emerald-400 font-bold">
+                    <i class="fas fa-check-circle mr-2"></i> Message sent successfully!
+                </div>
+            </div>
+
+            <div class="mt-16 flex flex-col items-center gap-4">
+                <span class="text-slate-500 text-sm uppercase tracking-tighter">Follow me</span>
+                <div class="flex gap-6">
+                    <a href="https://webhut-in.github.io.com" class="text-slate-400 hover:text-white transition transform hover:scale-125"><i class="fab fa-github text-xl"></i></a>
+                    <a href="https://x.com/amaneeh_" class="text-slate-400 hover:text-white transition transform hover:scale-125"><i class="fab fa-x-twitter text-xl"></i></a>
+                    <a href="https://www.instagram.com/amaneeh._?igsh=YzhvZXZsb25sbGZ4" class="text-slate-400 hover:text-pink-500 transition transform hover:scale-125"><i class="fab fa-instagram text-xl"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center text-slate-500 text-xs border-t border-white/5">
+        <p>&copy; <span id="year"></span> Aman Muhammed P. Crafted with passion in Kerala, India.</p>
+    </footer>
+
+    <script>
+        // Set Current Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Handle Contact Form
+        const form = document.getElementById('contactForm');
+        const success = document.getElementById('formSuccess');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            form.classList.add('hidden');
+            success.classList.remove('hidden');
+            
+            // In a real app, you'd use fetch() to send the data here
+            console.log("Form Submitted!");
+        });
+
+        // Smooth reveal on scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
+
+
+
